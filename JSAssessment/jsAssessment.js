@@ -1,35 +1,18 @@
-/*
-Assessment Requirements
-1. Create a variable that can hold a number of NFT's. What type of variable might this be?
-2. Create an object inside your mintNFT function that will hold the metadata for your NFTs. 
-   The metadata values will be passed to the function as parameters. When the NFT is ready, 
-   you will store it in the variable you created in step 1
-3. Your listNFTs() function will print all of your NFTs metadata to the console (i.e. console.log("Name: " + someNFT.name))
-4. For good measure, getTotalSupply() should return the number of NFT's you have created
-
-Additional Features : 
-1.Unique Id to Every NFT
-3.Deleting Metadata of any NFT
-4.Transfering Ownership Of NFTs
-5.Searching NFT in NFTs
-
-*/
-
-// 1. create a variable to hold your NFT's
+// 1. create a variable to hold  NFT's
 const NFTs = [];
 
 // 2. Generating Unique IDs
+function generateID(date) {
 
-function generateID() {
-    const date = new Date();
-    return (date.getTime() + Math.floor(Math.random()*200 + 100)).toString().slice(-5);
+    return (new Date(date).getTime()+ Math.floor(Math.random()*200 + 100)).toString().slice(-5);
 }
+generateID('2024-01-01')
 
 //3. Minting NFT
 
 function mintNFT(_name,_owner,_creator,_description,_creationDate,_blockchain) {
     const NFT = {
-        'id': generateID(),
+        'id': generateID(_creationDate),
         'name': _name,
         'owner': _owner,
         'creator': _creator,
@@ -81,7 +64,7 @@ function transferNFT(nft,newOwner) {
         return;
     }
     validNFT.owner = newOwner;
-    console.log(`New Owner of this NFT ${validNFT.name} is ${newOwner}\n`);    
+    console.log(`New Owner of this  ${validNFT.name} is ${newOwner}\n`);    
 }
 //8. Deleting  NFT
 
@@ -103,46 +86,40 @@ function deleteNFT(nft) {
 
 // Function calls
 
-// Minting NFTs
-mintNFT('First NFT', 'Alice', 'Alice', 'This is the first NFT', '2024-01-01', 'Ethereum');
-mintNFT('Second NFT', 'Bob', 'Alice', 'This is the second NFT', '2024-01-02', 'Ethereum');
-mintNFT('Third NFT', 'Charlie', 'Bob', 'This is the third NFT', '2024-01-03', 'Binance Smart Chain');
-mintNFT('Fourth NFT', 'Diana', 'Charlie', 'This is the fourth NFT', '2024-01-04', 'Polygon');
-mintNFT('Fifth NFT', 'Eve', 'Diana', 'This is the fifth NFT', '2024-01-05', 'Solana');
+mintNFT('Beeple: Everydays', 'Alice', 'Beeple', 'A collection of 5000 digital images', '2021-03-11', 'Ethereum');
+mintNFT('CryptoPunk #7804', 'Bob', 'Larva Labs', 'An alien wearing a cap and smoking a pipe', '2021-03-10', 'Ethereum');
+mintNFT('Bored Ape Yacht Club #2087', 'Charlie', 'Yuga Labs', 'A bored ape with a unique fur pattern', '2022-08-07', 'Ethereum');
+mintNFT('Decentraland Parcel', 'Diana', 'Decentraland Foundation', 'A plot of virtual land in Decentraland', '2021-02-20', 'Ethereum');
+mintNFT('Axie Infinity: Axie #458', 'Eve', 'Sky Mavis', 'A rare axie used in the Axie Infinity game', '2021-07-15', 'Ronin');
 
-// Listing All NFTs
 listNFTs();
 
-// Total NFTs Created
 console.log(`Total NFTs minted are: ${getTotalSupply()}\n`);
 
-// Finding NFTs by ID
-const realID = NFTs[2].id;  // Assuming this ID exists
-const fakeID = '99999';     // Assuming this ID does not exist
+const realID = NFTs[2].id;
+const fakeID = '99999';
 findNFT(realID);
 findNFT(fakeID);
 
-// Transferring Ownership of an NFT
-transferNFT({id: realID}, 'Frank');  // Transfer the third NFT to 'Frank'
+transferNFT({ id: realID }, 'Frank');
 
-// Deleting an NFT
-deleteNFT({id: realID});  // Delete the third NFT
+deleteNFT({ id: realID });
 
-// Listing All NFTs after deletion to see the changes
 listNFTs();
 
-// Total NFTs Created after deletion
 console.log(`Total NFTs minted are: ${getTotalSupply()}\n`);
 
-// Example of transferring ownership and then deleting
-const secondNFTID = NFTs[1].id; // Assuming this ID exists
-transferNFT({id: secondNFTID}, 'Grace');  // Transfer the second NFT to 'Grace'
-deleteNFT({id: secondNFTID});  // Delete the second NFT
+const secondNFTID = NFTs[1].id;
+transferNFT({ id: secondNFTID }, 'Grace');
+deleteNFT({ id: secondNFTID });
 
-// Listing All NFTs after transfer and deletion
 listNFTs();
 
-// Total NFTs Created after transfer and deletion
 console.log(`Total NFTs minted are: ${getTotalSupply()}\n`);
+
+
+
+
+
 
 
