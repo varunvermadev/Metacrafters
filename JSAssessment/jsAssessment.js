@@ -2,7 +2,7 @@
 const NFTs = [];
 
 // 2. Generating Unique IDs
-function generateID(date) {
+function generateUniqueID(date) {
 
     return (new Date(date).getTime()+ Math.floor(Math.random()*200 + 100)).toString().slice(-5);
 }
@@ -18,11 +18,11 @@ function mintNFT(_name,_owner,_creator,_description,_creationDate,_blockchain) {
         'creator': _creator,
         'description': _description,
         'creationDate': _creationDate,
-        'blockchain' : _blockchain
-    }
+        'blockchain': _blockchain
+    };
 
     NFTs.push(NFT);
-    console.log(`Minted : ${NFT.name} of ${NFT.owner} created in ${NFT.creationDate}`);
+    console.log(`Minted : ${NFT.name} of ${NFT.owner} created`);
     console.log('\n');
 }
 
@@ -86,6 +86,8 @@ function deleteNFT(nft) {
 
 // Function calls
 
+
+
 mintNFT('Beeple: Everydays', 'Alice', 'Beeple', 'A collection of 5000 digital images', '2021-03-11', 'Ethereum');
 mintNFT('CryptoPunk #7804', 'Bob', 'Larva Labs', 'An alien wearing a cap and smoking a pipe', '2021-03-10', 'Ethereum');
 mintNFT('Bored Ape Yacht Club #2087', 'Charlie', 'Yuga Labs', 'A bored ape with a unique fur pattern', '2022-08-07', 'Ethereum');
@@ -101,24 +103,13 @@ const fakeID = '99999';
 findNFT(realID);
 findNFT(fakeID);
 
-transferNFT({ id: realID }, 'Frank');
+transferNFT(NFTs[2], 'Frank');
 
-deleteNFT({ id: realID });
-
-listNFTs();
+deleteNFT(NFTs[3]);
 
 console.log(`Total NFTs minted are: ${getTotalSupply()}\n`);
 
-const secondNFTID = NFTs[1].id;
-transferNFT({ id: secondNFTID }, 'Grace');
-deleteNFT({ id: secondNFTID });
-
 listNFTs();
-
-console.log(`Total NFTs minted are: ${getTotalSupply()}\n`);
-
-
-
 
 
 
